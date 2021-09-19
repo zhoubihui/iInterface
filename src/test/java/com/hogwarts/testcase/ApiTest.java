@@ -19,31 +19,6 @@ public class ApiTest {
     private String expectCityName = "";
 
     /**
-     * Load config file from the environment path user.home.
-     *
-     * @param propFileName: Properties file name (String)
-     * @return Properties object of the config file (Properties)
-     */
-    private Properties loadFromEnvProperties(String propFileName) {
-        Properties prop = null;
-
-        String path = System.getProperty("user.home");
-
-        //读入envProperties属性文件
-        try {
-            prop = new Properties();
-            InputStream in = new BufferedInputStream(
-                    new FileInputStream(path + File.separator + propFileName));
-            prop.load(in);
-            in.close();
-        } catch (IOException ioex) {
-            System.err.println("配置文件加载失败，请检查 " + path + File.separator + propFileName + "文件是否存在！");
-        }
-
-        return prop;
-    }
-
-    /**
      * Get the city name from the response body.
      *
      * @param cityCode: city code (string)
@@ -70,9 +45,7 @@ public class ApiTest {
 
     @BeforeEach
     public void begin() {
-        String propFileName = "iInterface.properties";
-        Properties prop = loadFromEnvProperties(propFileName);
-        String host = prop.getProperty("server_addr", "www.weather.com.cn");
+        String host = "www.weather.com.cn";
         baseUrl = "http://" + host + "/data/cityinfo/";
     }
 
